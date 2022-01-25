@@ -13,12 +13,12 @@ import (
 )
 
 type codedetail struct {
-	Usecase  string `json:"usecase,omitempty" bson:"usecase"`
-	Rank     int    `json:"rank,omitempty" bson:"rank"`
-	Compiled bool   `json:"compiled" bson:"compiled"`
-	Homepage string `json:"homepage,omitempty" bson:"homepage"`
-	Download string `json:"download,omitempty" bson:"download"`
-	Votes    int    `json:"votes" bson:"votes"`
+	Usecase  string `json:"usecase,omitempty"`
+	Rank     int    `json:"rank,omitempty"`
+	Compiled bool   `json:"compiled"`
+	Homepage string `json:"homepage,omitempty"`
+	Download string `json:"download,omitempty"`
+	Votes    int    `json:"votes"`
 }
 
 type language struct {
