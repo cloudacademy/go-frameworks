@@ -52,13 +52,5 @@ func init() {
 	createRocketCmd.PersistentFlags().StringP("mission", "m", "", "name of the mission")
 	createRocketCmd.PersistentFlags().IntP("fuel", "f", 100, "amount of fuel required")
 	createRocketCmd.PersistentFlags().IntP("maxspeed", "s", 1000, "maximum speed")
-	err := createRocketCmd.MarkPersistentFlagRequired("type")
-	if err != nil {
-		fmt.Println("the --type flag is required")
-	}
-	err = createRocketCmd.MarkPersistentFlagRequired("mission")
-	if err != nil {
-		fmt.Println("the --mission flag is required")
-	}
 	createCmd.AddCommand(createRocketCmd)
 }
