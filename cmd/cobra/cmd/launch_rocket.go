@@ -35,10 +35,7 @@ var launchRocketCmd = &cobra.Command{
 
 func init() {
 	launchRocketCmd.PersistentFlags().IntP("countdown", "c", 10, "countdown length for launch")
-	err := launchRocketCmd.MarkPersistentFlagRequired("countdown")
-	if err != nil {
-		fmt.Println("the --countdown flag is required")
-	}
-
+	//nolint:errcheck
+	launchRocketCmd.MarkPersistentFlagRequired("countdown")
 	launchCmd.AddCommand(launchRocketCmd)
 }
