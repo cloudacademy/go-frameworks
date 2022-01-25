@@ -1,3 +1,5 @@
+# ECHO
+
 echostart: echoserver.PID
 
 echoserver.PID:
@@ -20,6 +22,7 @@ echostop: echoserver.PID
 echoall: echostart echotest echostop
 
 # ================
+# GORILLA
 
 gorillastart: gorillaserver.PID
 
@@ -43,7 +46,31 @@ gorillastop: gorillaserver.PID
 gorillaall: gorillastart gorillatest gorillastop
 
 # ================
+# COBRA
+
+cobraclear:
+	rm -rf ~/.rocketctl
+	rm -rf $(CURDIR)/out/bin 
+
+cobrabuild:
+	mkdir -p $(CURDIR)/out/bin
+	cd cmd/cobra && GO111MODULE=on go build -o $(CURDIR)/out/bin/rocketctl .
+
+cobraclihelp:
+	cd $(CURDIR)/out/bin && ./rocketctl create rocket --help
+	echo
+	cd $(CURDIR)/out/bin && ./rocketctl launch rocket --help
+
+cobraclicreate:
+	cd $(CURDIR)/out/bin && ./rocketctl create rocket r1 --type=saturnv --mission=apollo11 --fuel=5000 --maxspeed=25000
+
+cobraclilaunch:
+	cd $(CURDIR)/out/bin && ./rocketctl launch rocket r1 --countdown=10
+
+cobraall: cobraclear cobrabuild cobraclihelp cobraclicreate cobraclilaunch
+
+.PHONY: cobraclear cobraclihelp cobraclicreate cobraclilaunch
 
 # ================
 
-all: echoall gorillaall
+all: echoall gorillaall cobraall
