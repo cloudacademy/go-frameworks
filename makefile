@@ -6,7 +6,7 @@ echoserver.PID:
 	go run ./cmd/echo/main.go & echo $$! > $@;
 
 echotest: echoserver.PID
-	until curl -o /dev/null -s localhost:8080/cloudacademy; do sleep 1; done
+	until curl -o /dev/null -s localhost:8080/ok; do sleep 1; done
 	curl -v localhost:8080/cloudacademy && echo
 	curl -v localhost:8080/cloudacademy/courses/100 && echo
 	curl -v --request PUT localhost:8080/cloudacademy/courses/100 && echo

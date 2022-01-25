@@ -51,8 +51,15 @@ func deleteCourse(c echo.Context) error {
 	return c.String(http.StatusOK, msg)
 }
 
+func ok(c echo.Context) error {
+	c.Response().Header().Add("Content-Type", "text/plain")
+	return c.String(http.StatusOK, "OK!")
+}
+
 func main() {
 	e := echo.New()
+
+	e.GET("/ok", ok)
 
 	e.GET("/cloudacademy", func(c echo.Context) error {
 		return c.String(http.StatusOK, "CloudAcademy + Go + Echo!!\n")
