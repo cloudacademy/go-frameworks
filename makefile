@@ -41,3 +41,9 @@ gorillastop: gorillaserver.PID
 .PHONY: gorillastart gorillastop
 
 gorillaall: gorillastart gorillatest gorillastop
+
+# ================
+
+# ================
+
+all: echoall gorillaall
