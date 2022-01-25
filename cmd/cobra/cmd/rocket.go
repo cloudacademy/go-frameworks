@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -8,12 +9,11 @@ import (
 )
 
 type rocket struct {
-	Name     string
-	Type     string
-	Mission  string
-	Fuel     int
-	Maxspeed int
-	Launched bool
+	Name     string `json:"name"`
+	Type     string `json:"type"`
+	Mission  string `json:"mission"`
+	Fuel     int    `json:"fuel"`
+	Maxspeed int    `json:"maxspeed"`
 }
 
 func getHomeDir() string {
@@ -37,14 +37,21 @@ func createRocket(r rocket) {
 
 	defer file.Close()
 
-	_, err := file.WriteString(fmt.Sprintf("%#v", r))
+	b, _ := json.Marshal(r)
+	_, err := file.WriteString(string(b))
 	if err != nil {
-		panic("unable to write file")
+		panic("unable to write rocket to file")
 	}
 	fmt.Printf("rocket %s has been created\n", r.Name)
 }
 
-func getRocketByName(name string) {
+func getRocketByName(name string) rocket {
 	data, _ := ioutil.ReadFile(getHomeDir() + "/" + name)
 	fmt.Printf("Data: %s\n", data)
+	rocket := rocket{}
+	err := json.Unmarshal([]byte(data), &rocket)
+	if err != nil {
+		panic("unable to read rocket data")
+	}
+	return rocket
 }

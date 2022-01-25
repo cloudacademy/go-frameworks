@@ -21,13 +21,14 @@ var launchRocketCmd = &cobra.Command{
 			fmt.Println(err)
 		}
 
-		getRocketByName(args[0])
+		rocket := getRocketByName(args[0])
 
 		var b strings.Builder
+		b.WriteString(fmt.Sprintf("launching rocket %s: ", rocket.Name))
 		for i := countdown; i >= 0; i-- {
 			b.WriteString(fmt.Sprintf("%d...", i))
 		}
-		b.WriteString("...blast off!!")
+		b.WriteString(" -- blast off!!")
 		fmt.Println(b.String())
 	},
 }
